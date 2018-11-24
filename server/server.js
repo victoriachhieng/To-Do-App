@@ -17,4 +17,4 @@ app.get('/todo', (req, res) => {
 // Start listening for requests on a specific port
 app.listen(PORT, () => {
     console.log('listening on port', PORT);
-});
+}); // end listen
