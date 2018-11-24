@@ -1,18 +1,16 @@
 // Require
 const express = require('express');
-const app = express();
 const bodyParser = require('body-parser');
-const PORT = 5000;
+const app = express();
+const PORT = process.env.PORT || 5000;
+const toDoRouter = require('./routes/todo.router.js');
 
 // USES
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static('server/public'));
 
-// GET
-app.get('/todo', (req, res) => {
-    console.log('in GET route');
-    res.send('HELLO');
-}); // END GET ROUTE
+// ROUTES
+app.use('/todoapp', toDoRouter)
 
 // Start listening for requests on a specific port
 app.listen(PORT, () => {
