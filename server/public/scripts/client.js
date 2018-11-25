@@ -22,6 +22,10 @@ function handleAddBtn() {
         notes: $(`#notesIn`).val(),
         status: $(`#statusIn`).val()
     } // end taskToSend
+// empty inputs
+    $(`#taskIn`).val('');
+    $(`#notesIn`).val('');
+    $(`#statusIn`).val('');
     $.ajax({
         method: 'POST',
         url: '/todoapp',
