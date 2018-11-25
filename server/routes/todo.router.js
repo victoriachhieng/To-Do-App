@@ -53,12 +53,12 @@ toDoRouter.post('/', (req, res) => {
     }); // end query pool
 }); // END POST ROUTE
 
+/*
 // Setup PUT 
 toDoRouter.put('/:id', function (req, res) {
     let id = req.params.id;
     const taskToUpdate = req.body; // This the data we sent
-    const query = `UPDATE "tasks" SET ("id", "taks", "notes", "status") 
-    VALUES ($1, $2, $3, $4) WHERE "id" = $1;`
+    const query = 'UPDATE FROM “tasks” SET “status” = ‘Complete' WHERE "id" = 1;';
     pool.query(query, [taskToUpdate.id, taskToUpdate.tasks, taskToUpdate.notes, taskToUpdate.status])
         .then((result) => {
             console.log(result);
@@ -68,6 +68,7 @@ toDoRouter.put('/:id', function (req, res) {
             res.sendStatus(500);
         }) // end query pool
 }) // END PUT ROUTE
+*/
 
 toDoRouter.delete('/:id', (req, res) => {
     const id = req.params.id;

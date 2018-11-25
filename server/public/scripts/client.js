@@ -1,9 +1,15 @@
+console.log('js');
+// editing mode set to false default
+let completeTask = false;
+let completeTaskId; //empty until called
+
 $(document).ready(handleReady);
 
 function handleReady() {
     // Set up click listeners
     $('#addTaskBtn').on('click', handleAddBtn);
-    $('#viewTask').on('click', '.deleteBtn', handleDelete);
+    $('#viewTask').on('click', '.deleteBtn', handleDelete); 
+    // $('#viewTask').on('click', '.completeBtn', handleComplete);
     // Get data
     getTasks();
 } // end handleReady
