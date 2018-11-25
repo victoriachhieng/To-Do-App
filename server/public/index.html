@@ -14,8 +14,23 @@
     <div id="inputDiv">
             <input type="text" id="taskIn" placeholder="Task">
             <input type="text" id="notesIn" placeholder="Notes">
-            <input type="number" id="dateIn" placeholder="Date">
+            <input type="text" id="statusIn" placeholder="Status">
             <button id="addTaskBtn">Add Task</button>
     </div>
+    <section>
+        <h2>All Tasks</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Task</th>
+                    <th>Notes</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody id="viewTask">
+            </tbody>
+        </table>
+    </section>
 </body>
 </html>

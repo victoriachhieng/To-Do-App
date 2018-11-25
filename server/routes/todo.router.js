@@ -1,8 +1,8 @@
 const express = require('express');
 const toDoRouter = express.Router();
-const pg = require('pg'); // Node module that will connect to postgres
 
 // Setup PG to connect to database
+const pg = require('pg'); // Node module that will connect to postgres
 const Pool = pg.Pool;
 const config = {
     database: 'weekend-to-do-app', // name of your database
@@ -25,16 +25,33 @@ pool.on("error", (error) => {
 
 // Setup a GET route to get all tasks from database
 toDoRouter.get('/', (req, res) => {
-    console.log('in GET route');
-    // the query we want to run
+    console.log('In GET route');
+    // The query we want to run
     const query = 'SELECT * FROM "tasks";';
     pool.query(query).then((results) => {
-        console.log('Got stuff back from database', results);
-        res.send(results.row); // results.row is an ARRAY of tasks
+        console.log(results);
+        res.send(results.rows); // result.rows is an Array of tasks
     }).catch((error) => {
         console.log('Error making GET', error);
         res.sendStatus(500);
-    });
+    }); // end query pool
 }); // END GET ROUTE
+
+// POST
+toDoRouter.post('/', (req, res) => {
+    console.log('in POST');
+    const taskToSend = req.body; // This the data we sent
+    console.log('In POST route - product:', taskToSend);
+    const query = 'INSERT INTO "tasks" ("task", "notes", "status") VALUES ($1, $2, $3);';
+    // $ with index (e.g. $1) will help improve the security of your db
+    // Avoids SQL injection -- see bobby drop table comic
+    pool.query(query, [taskToSend.task, taskToSend.notes, taskToSend.status]).then(() => {
+        res.sendStatus(201);
+    }).catch((error) => {
+        console.log('Error in POST', error);
+        res.sendStatus(500);
+    }); // end query pool
+}); // END POST ROUTE
+
 
 module.exports = toDoRouter;
