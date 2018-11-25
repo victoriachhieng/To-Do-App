@@ -53,13 +53,11 @@ toDoRouter.post('/', (req, res) => {
     }); // end query pool
 }); // END POST ROUTE
 
-/*
-// Setup PUT 
-toDoRouter.put('/:id', function (req, res) {
-    let id = req.params.id;
-    const taskToUpdate = req.body; // This the data we sent
-    const query = 'UPDATE FROM “tasks” SET “status” = ‘Complete' WHERE "id" = 1;';
-    pool.query(query, [taskToUpdate.id, taskToUpdate.tasks, taskToUpdate.notes, taskToUpdate.status])
+// Setup UPDATE
+toDoRouter.put('/:id', (req, res) => {
+    const id = req.params.id;
+    console.log(`id made it to server ${id}`);
+    pool.query(`UPDATE tasks SET status = 'Complete' WHERE id = $1;`, [id])
         .then((result) => {
             console.log(result);
             res.sendStatus(201);
@@ -68,7 +66,6 @@ toDoRouter.put('/:id', function (req, res) {
             res.sendStatus(500);
         }) // end query pool
 }) // END PUT ROUTE
-*/
 
 toDoRouter.delete('/:id', (req, res) => {
     const id = req.params.id;

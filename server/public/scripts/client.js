@@ -1,15 +1,15 @@
 console.log('js');
-// editing mode set to false default
-let completeTask = false;
-let completeTaskId; //empty until called
+// // editing mode set to false default
+// let completeTask = false;
+// let completeTaskId; //empty until called
 
 $(document).ready(handleReady);
 
 function handleReady() {
     // Set up click listeners
     $('#addTaskBtn').on('click', handleAddBtn);
-    $('#viewTask').on('click', '.deleteBtn', handleDelete); 
-    // $('#viewTask').on('click', '.completeBtn', handleComplete);
+    $('#viewTask').on('click', '.deleteBtn', handleDelete);
+    $('#viewTask').on('click', '.completeBtn', handleComplete);
     // Get data
     getTasks();
 } // end handleReady
@@ -22,7 +22,7 @@ function handleAddBtn() {
         notes: $(`#notesIn`).val(),
         status: $(`#statusIn`).val()
     } // end taskToSend
-// empty inputs
+    // empty inputs
     $(`#taskIn`).val('');
     $(`#notesIn`).val('');
     $(`#statusIn`).val('');
@@ -84,3 +84,15 @@ function handleDelete() {
         getTasks();
     }) // end DELETE ajax
 } // end handleDelete
+
+function handleComplete() {
+    console.log('in handleComplete');
+    let id = $(this).parent().parent().data('id');
+    console.log(`in handleComplete, ${id}`);
+    $.ajax({
+        method: 'PUT',
+        url: `/todoapp/${id}`
+    }).then(function (response) {
+        getTasks();
+    }) // end UPDATE ajax
+} // end handleComplete
