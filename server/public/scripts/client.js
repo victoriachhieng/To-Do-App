@@ -1,74 +1,76 @@
-console.log('js');
-
 $(document).ready(handleReady);
 
 function handleReady() {
-    console.log('in handleReady');
     // Set up click listeners
-    handleClickListeners();
-    // load existing koalas on page load
+    $('#addTaskBtn').on('click', handleAddBtn);
+    $('#viewTask').on('click', '.deleteBtn', handleDelete);
+    // Get data
     getTasks();
 } // end handleReady
 
-
-function handleClickListeners() {
-    $('#addTaskBtn').on('click', function () {
-        console.log('in handleClickListeners');
-        // using an object
-        let taskToSend = {
-            task: $(`#taskIn`).val(),
-            notes: $(`#notesIn`).val(),
-            status: $(`#statusIn`).val()
-        }; // end object
-        // call saveTask with new object
-        saveTask(taskToSend);
-    });
-} // end handleClickListners
-
-function getTasks() {
-    console.log('in getTasks');
-    // ajax call to server to get tasks
-    $.ajax({
-        method: `GET`,
-        url: `/todoapp`
-    }).then(function (response) {
-        appendToDom(response);
-    }) // end ajax
-} // end getTasks
-
-//POST
-function saveTask(newTask) {
-    console.log('in saveTask', newTask);
-    // ajax call to server to add task
+function handleAddBtn() {
+    console.log('in handleAddBtn');
+    // get user input and put in an object
+    let taskToSend = {
+        task: $(`#taskIn`).val(),
+        notes: $(`#notesIn`).val(),
+        status: $(`#statusIn`).val()
+    } // end taskToSend
     $.ajax({
         method: 'POST',
         url: '/todoapp',
-        data: newTask //object being sent
+        data: taskToSend
     }).then(function (response) {
-        console.log('back from POST with', response);
+        //database is updated, need to update DOM
+        getTasks();
     }).catch(function (error) {
-        console.log('error with POST', error);
-    }) // end ajax
-    // clear inputs
-    $(`#taskIn`).val('');
-    $(`#notesIn`).val('');
-    $(`#statusIn`).val('');
-} // end saveTask
+        console.log(error);
+        alert('Something went wrong in POST');
+    }) // end POST ajax
+} // end handleAddBtn
 
-
-// AUXILLARY FUNCTIONS
+function getTasks() {
+    $.ajax({
+        method: 'GET',
+        url: '/todoapp'
+    }).then(function (response) {
+        console.log('getTasks - response', response);
+        //Append tasks
+        appendToDom(response);
+    }).catch(function (error) {
+        console.log('getTasks - error', error);
+        alert('something went wrong in GET')
+    }) // end GET ajax
+} // end getTasks 
 
 function appendToDom(tasks) {
     console.log('in appendToDom');
-    $("#viewTasks").empty();
+    $("#viewTask").empty();
     for (let task of tasks) {
-        let el = $(`<tr> </tr>`);
-        el.data('task', tasks);
-        el.append(`
+        let $tr = $(`<tr> </tr>`);
+        $tr.append(`
+      <td>${task.id}</td>
       <td>${task.task}</td>
       <td>${task.notes}</td>
       <td>${task.status}</td>
-    `);
-        $("#viewTasks").append(el);
-    } // end for loop
+      <td><button class="completeBtn">Complete</button></td>
+      <td><button class="deleteBtn">Delete</button></td>
+    `); // end append
+        // attach data to row, need for delete
+        $tr.data('id', task.id);
+        $("#viewTask").append($tr);
+    } // end for loop 
 } // end appendToDom
+
+
+function handleDelete() {
+    console.log('in handleDelete');
+    let id = $(this).parent().parent().data('id');
+    console.log(`in handleDelete, ${id}`);
+    $.ajax({
+        method: 'DELETE',
+        url: `/todoapp/${id}`
+    }).then(function (response) {
+        getTasks();
+    }) // end DELETE ajax
+} // end handleDelete
