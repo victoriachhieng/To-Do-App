@@ -1,13 +1,23 @@
 .deleteBtn {
-    background-color: red;
     color: white;
     cursor: pointer;
     cursor: hand;
 }
 
 .completeBtn {
-    background:grey;
     color: white;
     cursor: pointer;
     cursor: hand;
     }
+
+.gray {
+    background: gray
+}
+
+.red {
+    background: red;
+}
+
+.green {
+    background: green;
+}

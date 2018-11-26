@@ -3,8 +3,9 @@ $(document).ready(handleReady);
 function handleReady() {
     // Set up click listeners
     $('#addTaskBtn').on('click', handleAddBtn);
-    $('#viewTask').on('click', '.deleteBtn', handleDelete);
+    $('#viewTask').on('click', '.deleteBtn', handleDelete)
     $('#viewTask').on('click', '.completeBtn', handleComplete);
+    // $('#viewTask').on('click', '.completeBtn', handleSwap);
     // Get data
     getTasks();
 } // end handleReady
@@ -58,8 +59,9 @@ function appendToDom(tasks) {
       <td class="bg-light">${task.task}</td>
       <td class="bg-primary">${task.notes}</td>
       <td class="bg-light">${task.status}</td>
-      <td><button onclick="myFunction()" class="completeBtn">Complete</button><input type="checkbox" id="checkBtn"></td>
-      <td><button class="deleteBtn">Delete</button></td>
+      <td><button class="completeBtn gray">Complete</button><input type="checkbox" id="checMarkBtn"></td>
+      <td><button class="deleteBtn red">Delete</button></td>
+      alert()
     `); // end append
         $(".completeBtn").click(function () {
         $(".completeBtn").addClass('button-clicked');
@@ -67,13 +69,16 @@ function appendToDom(tasks) {
         // attach data to row, need for delete
         $tr.data('id', task.id);
         $("#viewTask").append($tr);
+        if (task.status === 'Complete'){
+            $tr.css('background-color', 'green');
+        }
     } // end for loop 
 } // end appendToDom
 
-function myFunction() {
-    let x = document.getElementById("checkBtn");
-    x.checked = true;
-}
+// function handleSwap(){
+//     console.log('in handleSwap');
+//     let swap = $('.completeBtn').toggleClass('green');
+// } // end handleSwap
 
 function handleDelete() {
     console.log('in handleDelete');
