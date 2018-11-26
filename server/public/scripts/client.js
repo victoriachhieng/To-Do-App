@@ -1,8 +1,3 @@
-console.log('js');
-// // editing mode set to false default
-// let completeTask = false;
-// let completeTaskId; //empty until called
-
 $(document).ready(handleReady);
 
 function handleReady() {
@@ -59,19 +54,26 @@ function appendToDom(tasks) {
     for (let task of tasks) {
         let $tr = $(`<tr> </tr>`);
         $tr.append(`
-      <td>${task.id}</td>
-      <td>${task.task}</td>
-      <td>${task.notes}</td>
-      <td>${task.status}</td>
-      <td><button class="completeBtn">Complete</button></td>
+      <td class="bg-primary">${task.id}</td>
+      <td class="bg-light">${task.task}</td>
+      <td class="bg-primary">${task.notes}</td>
+      <td class="bg-light">${task.status}</td>
+      <td><button onclick="myFunction()" class="completeBtn">Complete</button><input type="checkbox" id="checkBtn"></td>
       <td><button class="deleteBtn">Delete</button></td>
     `); // end append
+        $(".completeBtn").click(function () {
+        $(".completeBtn").addClass('button-clicked');
+        });
         // attach data to row, need for delete
         $tr.data('id', task.id);
         $("#viewTask").append($tr);
     } // end for loop 
 } // end appendToDom
 
+function myFunction() {
+    let x = document.getElementById("checkBtn");
+    x.checked = true;
+}
 
 function handleDelete() {
     console.log('in handleDelete');
