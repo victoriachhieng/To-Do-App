@@ -1,8 +1,8 @@
-CREATE TABLE "tasks" (
-    "ID" SERIAL PRIMARY KEY,
-    "Task" VARCHAR(250) NOT NULL,
-    "Notes" VARCHAR(250) NOT NULL,
-    "Date" DATE
+CREATE TABLE tasks (
+    id SERIAL PRIMARY KEY,
+    task VARCHAR(250) NOT NULL,
+    notes VARCHAR(250) NOT NULL,
+    status VARCHAR(250) NOT NULL
 );
 
 -- INSERT
