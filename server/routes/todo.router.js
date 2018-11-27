@@ -1,7 +1,8 @@
 const express = require('express');
 const toDoRouter = express.Router();
+const pool = require('../modules/pool.js');
 
-// Setup PG to connect to database
+/* // Setup PG to connect to database
 const pg = require('pg'); // Node module that will connect to postgres
 const Pool = pg.Pool;
 const config = {
@@ -21,7 +22,8 @@ pool.on("connect", () => {
 
 pool.on("error", (error) => {
     console.log("error connecting to postgres database", error);
-});
+}); 
+*/
 
 // Setup a GET route to get all tasks from database
 toDoRouter.get('/', (req, res) => {
