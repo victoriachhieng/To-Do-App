@@ -39,4 +39,4 @@ Features that you would like to add at some point in the future.
 * Feature button that allows you to edit a task if you make a mistake rather than deleting it entirely. 
 
 Authors
-* Victoria Chhieng?? - me?
+* Victoria Chhieng
